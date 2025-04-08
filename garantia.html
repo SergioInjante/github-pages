@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tiempo Restante Garantía</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .contador {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h2>Tiempo restante de Garantía</h2>
+    <div class="contador" id="contador"></div>
+
+    <script>
+        function actualizarContador() {
+            const fechaExpiracion = new Date('2025-12-31T23:59:59'); // Cambia la fecha aquí
+            const ahora = new Date();
+            const diferencia = fechaExpiracion - ahora;
+
+            if (diferencia <= 0) {
+                document.getElementById('contador').innerHTML = "La garantía ha expirado.";
+                clearInterval(intervalo);
+                return;
+            }
+
+            const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
+            const minutos = Math.floor((diferencia / (1000 * 60)) % 60);
+            const segundos = Math.floor((diferencia / 1000) % 60);
+
+            document.getElementById('contador').innerHTML =
+                `${dias} días, ${horas} horas, ${minutos} minutos y ${segundos} segundos.`;
+        }
+
+        const intervalo = setInterval(actualizarContador, 1000);
+        actualizarContador();
+    </script>
+</body>
+</html>
